@@ -11,7 +11,10 @@ ReactDOM.hydrateRoot(
   <React.StrictMode>
     {
       <BrowserRouter>
-        <Router />
+        <Router
+          snapshotData={window.__PRELOADED_STATE__}
+          initialPath={window.__INITIAL_PATH__}
+        />
       </BrowserRouter>
     }
   </React.StrictMode>
