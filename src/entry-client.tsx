@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom"
 
 import { Router } from "./router"
 
-import "./index.css"
+import "./styles/main.scss"
 
 ReactDOM.hydrateRoot(
   document.getElementById("root") as HTMLElement,
