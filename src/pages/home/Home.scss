@@ -1,0 +1,42 @@
+.swiper-container {
+  --swiper-navigation-size: 10px;
+  --swiper-navigation-color: var(--color-primary);
+  .swiper-button-next,
+  .swiper-button-prev {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.swiper-button-disabled {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  &__slide {
+    a {
+      text-decoration: none;
+      color: var(--color-font);
+      display: block;
+      &:hover {
+        img {
+          border: var(--line-md) var(--color-primary);
+        }
+      }
+    }
+    img {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      border: var(--line-md) var(--color-background);
+    }
+    &-title {
+      margin: var(--spacing-sm) 0;
+      font-size: 14px;
+    }
+  }
+}

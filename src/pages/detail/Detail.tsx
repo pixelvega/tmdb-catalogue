@@ -6,9 +6,7 @@ import BaseLayout from "../../layout/BaseLayout"
 import { Button } from "../../components/button/Button"
 
 import "./Detail.scss"
-
-const IMG_base_url = "http://image.tmdb.org/t/p/"
-const IMG_backdrop_sizes = ["w300", "w780", "w1280", "original"]
+import { IMG_backdrop_sizes, IMG_base_url } from "../../utils/constants"
 
 const Detail = ({ initialData }: { initialData?: Movie }) => {
   const [isLoading, setIsLoading] = useState(Boolean(!initialData))
