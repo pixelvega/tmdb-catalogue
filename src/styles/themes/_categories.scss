@@ -1,0 +1,39 @@
+body[data-category="popular"] {
+  .base-layout {
+    .header {
+      --color-border-header: #04eb59;
+    }
+  }
+
+  .detail {
+    --color-primary: #04eb59;
+    --font-base: "Playfair Display", serif;
+    --color-font: var(--color-background);
+  }
+}
+
+body[data-category="top_rated"] {
+  .base-layout {
+    .header {
+      --color-border-header: #e30053;
+    }
+  }
+  .detail {
+    --color-primary: #e30053;
+    --font-base: "Roboto", sans-serif;
+    --color-font: var(--color-background);
+  }
+}
+
+body[data-category="upcoming"] {
+  .base-layout {
+    .header {
+      --color-border-header: #e5ca42;
+    }
+  }
+  .detail {
+    --color-primary: #e5ca42;
+    --font-base: "Arial", sans-serif;
+    --color-font: var(--color-background);
+  }
+}

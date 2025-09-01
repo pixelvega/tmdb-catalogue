@@ -50,7 +50,7 @@ const BaseLayout = ({ children }: Props) => {
           </ul>
         </nav>
       </header>
-      <div>{children}</div>
+      <div className="base-layout__content">{children}</div>
     </div>
   )
 }

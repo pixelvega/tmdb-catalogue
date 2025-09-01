@@ -77,4 +77,9 @@
       }
     }
   }
+  &__content {
+    padding: var(--spacing-md);
+    max-width: var(--screen-lg);
+    margin: 0 auto;
+  }
 }
