@@ -57,16 +57,20 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
     <BaseLayout>
       {movie && !isError ? (
         <article className="detail">
-          <section
-            className="detail-main"
-            style={
-              {
-                "--desktop-image": `url(${IMG_base_url}${IMG_backdrop_sizes[3]}${movie.backdrop_path})`,
-                "--mobile-image": `url(${IMG_base_url}${IMG_backdrop_sizes[1]}${movie.poster_path})`,
-              } as React.CSSProperties
-            }
-          >
-            <div className="detail-main__background"></div>
+          <section className="detail-main">
+            <div className="detail-main__background">
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={`${IMG_base_url}${IMG_backdrop_sizes[2]}${movie.backdrop_path}`}
+                />
+                <img
+                  src={`${IMG_base_url}${IMG_backdrop_sizes[1]}${movie.poster_path}`}
+                  alt={movie.title}
+                  className="detail-main__background-image"
+                />
+              </picture>
+            </div>
             <div className="detail-main__info">
               <h1 className="detail-main__title">{movie.title}</h1>
               <p className="detail-main__genres">

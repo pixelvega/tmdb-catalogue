@@ -6,19 +6,30 @@
     background-color: var(--color-background);
 
     &__background {
-      background-image: var(--desktop-image);
-      background-size: cover;
-      background-position: center;
-      mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 96%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      -webkit-mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 96%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      position: relative;
+      overflow: hidden;
+
+      &-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0) 96%,
+          rgba(0, 0, 0, 1) 100%
+        );
+        pointer-events: none;
+      }
     }
 
     &__info {
@@ -56,9 +67,10 @@
       grid-template-columns: 1fr;
       &__background {
         height: 600px;
-        mask-image: none;
-        -webkit-mask-image: none;
-        background-image: var(--mobile-image);
+
+        &::after {
+          display: none;
+        }
       }
 
       &__info {
