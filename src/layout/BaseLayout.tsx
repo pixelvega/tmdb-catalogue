@@ -1,4 +1,4 @@
-import logo from "../assets/logo.svg"
+import Logo from "../components/logo/Logo"
 import { Link, NavLink } from "react-router-dom"
 
 import "./BaseLayout.scss"
@@ -13,12 +13,7 @@ const BaseLayout = ({ children }: Props) => {
       <header className="header">
         <div className="header__logo" aria-label="TMDB Max">
           <Link to="/" aria-label="Ir a la página principal de TMDB Max">
-            <img
-              src={logo}
-              alt=""
-              aria-hidden="true"
-              className="header__logo-icon"
-            />
+            <Logo />
           </Link>
         </div>
         <nav className="header__nav">

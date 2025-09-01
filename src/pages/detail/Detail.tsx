@@ -73,10 +73,10 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
             </div>
             <div className="detail-main__info">
               <h1 className="detail-main__title">{movie.title}</h1>
-              <p className="detail-main__genres">
+              {/* <p className="detail-main__genres">
                 <span>Genres: </span>
-                {/* {movie.genre_ids.join(", ")} */}
-              </p>
+                {movie.genre_ids.join(", ")}
+              </p> */}
               <p>{movie.overview}</p>
               <p>
                 <span>Released: </span>
