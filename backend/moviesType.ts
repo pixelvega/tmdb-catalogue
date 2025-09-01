@@ -23,5 +23,9 @@ export type ResponseMovies = {
   total_results: number
 }
 
+export interface MovieListsByCategory extends ResponseMovies {
+  category: MovieLists
+}
+
 export const movieListsArray = ["popular", "top_rated", "upcoming"] as const
 export type MovieLists = (typeof movieListsArray)[number]

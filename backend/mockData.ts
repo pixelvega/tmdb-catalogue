@@ -349,3 +349,21 @@ export const mockTMDBData = {
   total_pages: 64,
   total_results: 1274,
 }
+
+export const mockTMDBDataDetail = {
+  adult: false,
+  backdrop_path: "/qEFTuoFIAwrnVn7IsvE8RVt2TK3.jpg",
+  genre_ids: [14, 10751, 28, 12],
+  id: 1087192,
+  original_language: "en",
+  original_title: "How to Train Your Dragon",
+  overview:
+    "On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations, Hiccup stands apart, defying centuries of tradition when he befriends Toothless, a feared Night Fury dragon. Their unlikely bond reveals the true nature of dragons, challenging the very foundations of Viking society.",
+  popularity: 206.9023,
+  poster_path: "/q5pXRYTycaeW6dEgsCrd4mYPmxM.jpg",
+  release_date: "2025-06-06",
+  title: "How to Train Your Dragon",
+  video: false,
+  vote_average: 8.027,
+  vote_count: 1737,
+}

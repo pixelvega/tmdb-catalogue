@@ -10,8 +10,8 @@ import { getMovie, getMovies } from "./backend/apiRequests.js"
 import {
   MovieLists,
   movieListsArray,
+  MovieListsByCategory,
   type Movie,
-  type ResponseMovies,
 } from "./backend/moviesType.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -37,13 +37,19 @@ async function createServer() {
 
   app.get("/api/movies", async (req, res, next) => {
     try {
-      // TODO: adapt data type in router to handle all movie lists
-      // const promises = movieListsArray.map((category) =>
-      //   getMovies(category as MovieLists)
-      // )
-      // data = await Promise.allSettled(promises)
-      const movies = await getMovies("popular")
-      res.status(200).json(movies)
+      const promises = movieListsArray.map((category) =>
+        getMovies(category as MovieLists)
+      )
+      const dataAll = await Promise.allSettled(promises)
+      const data = dataAll
+        .map((promise, index) => {
+          if (promise.status === "fulfilled" && promise.value.results) {
+            return { ...promise.value, category: movieListsArray[index] }
+          }
+          return undefined
+        })
+        .filter((item) => item !== undefined)
+      res.status(200).json(data)
     } catch (e) {
       next(e)
     }
@@ -61,7 +67,7 @@ async function createServer() {
 
   app.use("*all", async (req, res, next) => {
     let url = req.originalUrl
-    console.log("url", url)
+
     try {
       // 1. Read index.html
       let template = fs.readFileSync(
@@ -69,7 +75,7 @@ async function createServer() {
         "utf-8"
       )
 
-      let data: ResponseMovies | Movie
+      let data: MovieListsByCategory[] | Movie
 
       const matchDetail = url.match(
         /\/movie\/(popular|top_rated|upcoming)\/(.+)/
@@ -88,7 +94,7 @@ async function createServer() {
         }
         data = response
       } else {
-        // handle static routes
+        // . handle static routes
         switch (url) {
           // TODO: add favourites route
           // case "/favourites":
@@ -96,12 +102,19 @@ async function createServer() {
           //   break
 
           case "/":
-            // TODO: adapt data type in router to handle all movie lists
-            // const promises = movieListsArray.map((category) =>
-            //   getMovies(category as MovieLists)
-            // )
-            // data = await Promise.allSettled(promises)
-            data = await getMovies("popular")
+            const promises = movieListsArray.map((category) =>
+              getMovies(category as MovieLists)
+            )
+            const dataAll = await Promise.allSettled(promises)
+            data = dataAll
+              .map((promise, index) => {
+                if (promise.status === "fulfilled" && promise.value.results) {
+                  return { ...promise.value, category: movieListsArray[index] }
+                }
+                return undefined
+              })
+              .filter((item) => item !== undefined)
+
             break
           default:
             res

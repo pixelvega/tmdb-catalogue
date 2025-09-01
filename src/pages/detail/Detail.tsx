@@ -71,7 +71,7 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
               <h1 className="detail-main__title">{movie.title}</h1>
               <p className="detail-main__genres">
                 <span>Genres: </span>
-                {movie.genre_ids.join(", ")}
+                {/* {movie.genre_ids.join(", ")} */}
               </p>
               <p>{movie.overview}</p>
               <p>
@@ -93,7 +93,7 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
             <h3 className="detail-extra__title">Extra information</h3>
             <p>Popularity: {movie.popularity}</p>
             <p>Votes: {movie.vote_average}</p>
-            <p>Genre: {movie.genre_ids.join(", ")}</p>
+            {/* <p>Genre: {movie.genre_ids.join(", ")}</p> */}
             <p>Released: {movie.release_date}</p>
           </section>
         </article>
