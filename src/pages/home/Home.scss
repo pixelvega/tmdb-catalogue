@@ -1,7 +1,7 @@
 .category-title {
   margin-top: calc(var(--spacing-lg) * 2);
   text-transform: capitalize;
-  color: var(--color-accent);
+  color: var(--color-font);
 }
 .swiper-container {
   --swiper-navigation-size: 10px;
@@ -29,6 +29,9 @@
       &:hover {
         img {
           border: var(--line-md) var(--color-primary);
+        }
+        .swiper-container__slide-title {
+          color: var(--color-accent);
         }
       }
     }
