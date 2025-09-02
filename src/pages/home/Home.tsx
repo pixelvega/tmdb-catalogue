@@ -17,6 +17,7 @@ const Home = () => {
     appState: {
       views: { home: homeData },
     },
+    setAppState,
   } = useAppContext()
   const [isLoading, setIsLoading] = useState(Boolean(!homeData))
   const [isError, setIsError] = useState(false)
@@ -25,9 +26,15 @@ const Home = () => {
   )
 
   useEffect(() => {
-    if (homeData) return
+    if (homeData)
+      return () => {
+        setAppState((prev) => {
+          return { ...prev, views: { ...prev.views, home: undefined } }
+        })
+      }
 
     setIsError(false)
+
     fetch("/api/movies")
       .then<MovieListsByCategory[]>((response) => {
         return response.json()
