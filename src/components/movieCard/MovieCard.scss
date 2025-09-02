@@ -1,0 +1,28 @@
+.movie-card {
+  a {
+    text-decoration: none;
+    color: var(--color-font);
+    display: block;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      img {
+        border: var(--line-md) var(--color-primary);
+      }
+      .movie-card__title {
+        color: var(--color-accent);
+      }
+    }
+  }
+  img {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: var(--line-md) var(--color-background);
+  }
+  &__title {
+    margin: var(--spacing-sm) 0;
+    font-weight: normal;
+  }
+}
