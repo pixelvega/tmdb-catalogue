@@ -1,5 +1,6 @@
 import {
   createContext,
+  useLayoutEffect,
   useState,
   type Dispatch,
   type ReactNode,
@@ -22,6 +23,10 @@ const AppContextProvider = ({
   snapshotData: InitialState
 }) => {
   const [appState, setAppState] = useState<InitialState>(snapshotData)
+
+  useLayoutEffect(() => {
+    window.__PRELOADED_STATE__ = undefined
+  }, [snapshotData])
 
   return (
     <AppContext.Provider value={{ appState, setAppState }}>
