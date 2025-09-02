@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import type { Movie } from "../../../backend/moviesType"
+import type { Movie } from "../../backend/moviesType"
 import { IMG_backdrop_sizes, IMG_base_url } from "../../constants/api"
 
 import "./MovieCard.scss"

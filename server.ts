@@ -9,14 +9,10 @@ dotenv.config({ path: ".env" })
 import {
   getMovieById,
   getMovieListsByCategory,
-  getMoviesByCategory,
-} from "./backend/apiRequests.js"
-import {
-  MovieLists,
-  movieListsArray,
-  MovieListsByCategory,
-  type Movie,
-} from "./backend/moviesType.js"
+} from "./src/backend/apiRequests.js"
+import { movieListsArray } from "./src/backend/moviesType.js"
+import { initialState } from "./src/store/app/initialState.js"
+import { InitialState } from "./src/store/app/appTypes.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -68,7 +64,7 @@ async function createServer() {
         "utf-8"
       )
 
-      let data: MovieListsByCategory[] | Movie
+      let data: InitialState = initialState
 
       const matchDetail = url.match(
         /\/movie\/(popular|top_rated|upcoming)\/(.+)/
@@ -85,7 +81,8 @@ async function createServer() {
             .end(fs.readFileSync("./404.html", "utf-8"))
           return
         }
-        data = response
+        // TODO add state to the app context
+        data = { ...data, views: { ...data.views, detail: response } }
       } else {
         // . handle static routes
         switch (url) {
@@ -95,7 +92,8 @@ async function createServer() {
           //   break
 
           case "/":
-            data = await getMovieListsByCategory([...movieListsArray])
+            const homeData = await getMovieListsByCategory([...movieListsArray])
+            data = { ...data, views: { ...data.views, home: homeData } }
             break
           default:
             res
@@ -128,7 +126,6 @@ async function createServer() {
         () => `
        <script>
         window.__PRELOADED_STATE__ = ${JSON.stringify(data)};
-        window.__INITIAL_PATH__ = ${JSON.stringify(url)};
       </script>
       `
       )

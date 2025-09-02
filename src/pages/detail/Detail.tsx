@@ -1,17 +1,23 @@
 import { useEffect, useLayoutEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
-import type { Movie } from "../../../backend/moviesType"
+import type { Movie } from "../../backend/moviesType"
 import BaseLayout from "../../layout/BaseLayout"
 import { Button } from "../../components/button/Button"
 
 import "./Detail.scss"
 import { IMG_backdrop_sizes, IMG_base_url } from "../../constants/api"
+import { useAppContext } from "../../store/app/hooks"
 
-const Detail = ({ initialData }: { initialData?: Movie }) => {
-  const [isLoading, setIsLoading] = useState(Boolean(!initialData))
+const Detail = () => {
+  const {
+    appState: {
+      views: { detail: detailData },
+    },
+  } = useAppContext()
+  const [isLoading, setIsLoading] = useState(Boolean(!detailData))
   const [isError, setIsError] = useState(false)
-  const [movie, setMovie] = useState<Movie | undefined>(initialData)
+  const [movie, setMovie] = useState<Movie | undefined>(detailData)
   const params = useParams()
 
   useLayoutEffect(() => {
@@ -23,7 +29,7 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
   }, [params.category])
 
   useEffect(() => {
-    if (initialData) return
+    if (detailData) return
     if (!params.movieId) return
     setIsError(false)
     fetch(`/api/movie/${params.movieId}`)
@@ -31,7 +37,6 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
         return response.json()
       })
       .then((data) => {
-        console.log("data movie fetched", data)
         if (data.success === false) {
           return setIsError(true)
         }
@@ -44,7 +49,7 @@ const Detail = ({ initialData }: { initialData?: Movie }) => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [initialData, params.movieId])
+  }, [detailData, params.movieId])
 
   if (isLoading)
     return (

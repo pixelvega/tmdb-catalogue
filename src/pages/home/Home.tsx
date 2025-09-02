@@ -6,20 +6,26 @@ import "swiper/css/navigation"
 
 import Carousel from "../../components/carousel/Carousel"
 import BaseLayout from "../../layout/BaseLayout"
-import type { MovieListsByCategory } from "../../../backend/moviesType"
+import type { MovieListsByCategory } from "../../backend/moviesType"
 
 import "./Home.scss"
 import MovieCard from "../../components/movieCard/MovieCard"
+import { useAppContext } from "../../store/app/hooks"
 
-const Home = ({ initialData }: { initialData?: MovieListsByCategory[] }) => {
-  const [isLoading, setIsLoading] = useState(Boolean(!initialData))
+const Home = () => {
+  const {
+    appState: {
+      views: { home: homeData },
+    },
+  } = useAppContext()
+  const [isLoading, setIsLoading] = useState(Boolean(!homeData))
   const [isError, setIsError] = useState(false)
   const [movies, setMovies] = useState<MovieListsByCategory[]>(
-    initialData ? initialData : []
+    homeData ? homeData : []
   )
 
   useEffect(() => {
-    if (initialData) return
+    if (homeData) return
 
     setIsError(false)
     fetch("/api/movies")
@@ -37,7 +43,7 @@ const Home = ({ initialData }: { initialData?: MovieListsByCategory[] }) => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [initialData])
+  }, [homeData])
 
   if (isLoading) {
     return (
