@@ -11,7 +11,7 @@ const getOptions = () => {
   }
 }
 
-export const getMovies = async (category: MovieLists) => {
+export const getMoviesByCategory = async (category: MovieLists) => {
   // return mockTMDBData // TODO: remove mock data
   const page = 1
 
@@ -23,7 +23,22 @@ export const getMovies = async (category: MovieLists) => {
   return data
 }
 
-export const getMovie = async (movieId: number) => {
+export const getMovieListsByCategory = async (categories: MovieLists[]) => {
+  const promises = categories.map((category) =>
+    getMoviesByCategory(category as MovieLists)
+  )
+  const dataAll = await Promise.allSettled(promises)
+  return dataAll
+    .map((promise, index) => {
+      if (promise.status === "fulfilled" && promise.value.results) {
+        return { ...promise.value, category: categories[index] }
+      }
+      return undefined
+    })
+    .filter((item) => item !== undefined)
+}
+
+export const getMovieById = async (movieId: number) => {
   // return mockTMDBDataDetail // TODO: remove mock data
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,

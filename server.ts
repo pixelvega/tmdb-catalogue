@@ -6,7 +6,11 @@ import { createServer as createViteServer } from "vite"
 import dotenv from "dotenv"
 dotenv.config({ path: ".env" })
 
-import { getMovie, getMovies } from "./backend/apiRequests.js"
+import {
+  getMovieById,
+  getMovieListsByCategory,
+  getMoviesByCategory,
+} from "./backend/apiRequests.js"
 import {
   MovieLists,
   movieListsArray,
@@ -37,18 +41,7 @@ async function createServer() {
 
   app.get("/api/movies", async (req, res, next) => {
     try {
-      const promises = movieListsArray.map((category) =>
-        getMovies(category as MovieLists)
-      )
-      const dataAll = await Promise.allSettled(promises)
-      const data = dataAll
-        .map((promise, index) => {
-          if (promise.status === "fulfilled" && promise.value.results) {
-            return { ...promise.value, category: movieListsArray[index] }
-          }
-          return undefined
-        })
-        .filter((item) => item !== undefined)
+      const data = await getMovieListsByCategory([...movieListsArray])
       res.status(200).json(data)
     } catch (e) {
       next(e)
@@ -58,7 +51,7 @@ async function createServer() {
   app.get("/api/movie/:movieId", async (req, res, next) => {
     try {
       const movieId = req.params.movieId
-      const movie = await getMovie(Number(movieId))
+      const movie = await getMovieById(Number(movieId))
       res.status(200).json(movie)
     } catch (e) {
       next(e)
@@ -83,7 +76,7 @@ async function createServer() {
 
       if (matchDetail) {
         const movieId = matchDetail[2]
-        const response = await getMovie(Number(movieId))
+        const response = await getMovieById(Number(movieId))
 
         if (response.success === false) {
           res
@@ -102,19 +95,7 @@ async function createServer() {
           //   break
 
           case "/":
-            const promises = movieListsArray.map((category) =>
-              getMovies(category as MovieLists)
-            )
-            const dataAll = await Promise.allSettled(promises)
-            data = dataAll
-              .map((promise, index) => {
-                if (promise.status === "fulfilled" && promise.value.results) {
-                  return { ...promise.value, category: movieListsArray[index] }
-                }
-                return undefined
-              })
-              .filter((item) => item !== undefined)
-
+            data = await getMovieListsByCategory([...movieListsArray])
             break
           default:
             res
