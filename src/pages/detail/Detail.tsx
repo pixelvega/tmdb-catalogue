@@ -6,7 +6,7 @@ import BaseLayout from "../../layout/BaseLayout"
 import { Button } from "../../components/button/Button"
 
 import "./Detail.scss"
-import { IMG_backdrop_sizes, IMG_base_url } from "../../utils/constants"
+import { IMG_backdrop_sizes, IMG_base_url } from "../../constants/api"
 
 const Detail = ({ initialData }: { initialData?: Movie }) => {
   const [isLoading, setIsLoading] = useState(Boolean(!initialData))
