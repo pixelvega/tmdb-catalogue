@@ -1,4 +1,6 @@
-export const initialState = {
+import type { InitialState } from "./appTypes"
+
+export const initialState: InitialState = {
   details: undefined,
   genres: undefined,
   views: {

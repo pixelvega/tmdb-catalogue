@@ -1,24 +1,32 @@
-import { useEffect, useLayoutEffect, useState } from "react"
+import { useEffect, useLayoutEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 
-import type { Movie } from "../../backend/moviesType"
+import type { MovieLists } from "../../backend/moviesType"
 import BaseLayout from "../../layout/BaseLayout"
 import { Button } from "../../components/button/Button"
 
-import "./Detail.scss"
 import { IMG_backdrop_sizes, IMG_base_url } from "../../constants/api"
 import { useAppContext } from "../../store/app/hooks"
+import useGetMovieDetail from "../../hooks/useGetMovieDetail"
+import { useFavourites } from "../../hooks/useFavourites"
+
+import "./Detail.scss"
 
 const Detail = () => {
   const {
     appState: {
       views: { detail: detailData },
     },
+    setAppState,
   } = useAppContext()
-  const [isLoading, setIsLoading] = useState(Boolean(!detailData))
-  const [isError, setIsError] = useState(false)
-  const [movie, setMovie] = useState<Movie | undefined>(detailData)
-  const params = useParams()
+
+  const params = useParams<{ movieId: string; category: MovieLists }>()
+  const { isFavourite, toggleFavourite } = useFavourites()
+
+  const { isLoading, isError, movie, getMovieDetail } = useGetMovieDetail(
+    detailData,
+    params.movieId
+  )
 
   useLayoutEffect(() => {
     params.category &&
@@ -29,26 +37,14 @@ const Detail = () => {
   }, [params.category])
 
   useEffect(() => {
-    if (detailData) return
+    if (detailData)
+      return () => {
+        setAppState((prev) => {
+          return { ...prev, views: { ...prev.views, detail: undefined } }
+        })
+      }
     if (!params.movieId) return
-    setIsError(false)
-    fetch(`/api/movie/${params.movieId}`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((data) => {
-        if (data.success === false) {
-          return setIsError(true)
-        }
-        setMovie(data)
-      })
-      .catch((err) => {
-        console.log("error", err)
-        setIsError(true)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+    getMovieDetail()
   }, [detailData, params.movieId])
 
   if (isLoading)
@@ -91,9 +87,13 @@ const Detail = () => {
                 <Button
                   variant="solid"
                   size="md"
-                  onClick={() => console.log("Add to wishlist")}
+                  onClick={() =>
+                    toggleFavourite({ ...movie, category: params.category! })
+                  }
                 >
-                  Add to wishlist
+                  {isFavourite(movie.id)
+                    ? "Remove from favourite"
+                    : "Add to favourite"}
                 </Button>
               </div>
             </div>

@@ -1,4 +1,10 @@
-import type { Movie, MovieListsByCategory } from "../../backend/moviesType"
+import type {
+  Movie,
+  MovieLists,
+  MovieListsByCategory,
+} from "../../backend/moviesType"
+
+export type StoreddMovie = Movie & { category: MovieLists }
 
 export interface InitialState {
   details: Details | undefined

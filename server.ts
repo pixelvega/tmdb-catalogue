@@ -81,15 +81,14 @@ async function createServer() {
             .end(fs.readFileSync("./404.html", "utf-8"))
           return
         }
-        // TODO add state to the app context
+
         data = { ...data, views: { ...data.views, detail: response } }
       } else {
         // . handle static routes
         switch (url) {
-          // TODO: add favourites route
-          // case "/favourites":
-          //   data = await getFavourites()
-          //   break
+          case "/favourites":
+            // CSR route
+            break
 
           case "/":
             const homeData = await getMovieListsByCategory([...movieListsArray])
