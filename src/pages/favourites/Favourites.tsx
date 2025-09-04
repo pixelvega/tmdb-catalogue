@@ -10,13 +10,17 @@ const Favourites = () => {
   return (
     <BaseLayout>
       <h2>Your Favourite Movies</h2>
-      <ul className="favourites-list">
-        {favourites.map((movie) => (
-          <li>
-            <MovieCard movie={movie} category={movie.category} />
-          </li>
-        ))}
-      </ul>
+      {favourites.length > 0 ? (
+        <ul className="favourites-list">
+          {favourites.map((movie) => (
+            <li>
+              <MovieCard movie={movie} category={movie.category} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>You have no favourite movies yet.</p>
+      )}
     </BaseLayout>
   )
 }
