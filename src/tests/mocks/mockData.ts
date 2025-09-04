@@ -1412,22 +1412,34 @@ export const mockMovieListsByCategory: MovieListsByCategory[] = [
   },
 ]
 
-export const mockTMDBDataDetail = {
-  adult: false,
-  backdrop_path: "/qEFTuoFIAwrnVn7IsvE8RVt2TK3.jpg",
-  genre_ids: [14, 10751, 28, 12],
-  id: 1087192,
-  original_language: "en",
-  original_title: "How to Train Your Dragon",
-  overview:
-    "On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations, Hiccup stands apart, defying centuries of tradition when he befriends Toothless, a feared Night Fury dragon. Their unlikely bond reveals the true nature of dragons, challenging the very foundations of Viking society.",
-  popularity: 206.9023,
-  poster_path: "/q5pXRYTycaeW6dEgsCrd4mYPmxM.jpg",
-  release_date: "2025-06-06",
-  title: "How to Train Your Dragon",
-  video: false,
-  vote_average: 8.027,
-  vote_count: 1737,
+export const mockMovieDetail: MovieListsByCategory = {
+  dates: {
+    maximum: "2025-10-01",
+    minimum: "2025-09-10",
+  },
+  page: 1,
+  results: [
+    {
+      adult: false,
+      backdrop_path: "/htuuuEwAvDVECMpb0ltLLyZyDDt.jpg",
+      genre_ids: [18, 80],
+      id: 238,
+      original_language: "en",
+      original_title: "The Godfather",
+      overview:
+        "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
+      popularity: 26.3622,
+      poster_path: "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      release_date: "1972-03-14",
+      title: "The Godfather",
+      video: false,
+      vote_average: 8.686,
+      vote_count: 21786,
+    },
+  ],
+  total_pages: 516,
+  total_results: 10315,
+  category: "top_rated",
 }
 
 export const mockFavourites: StoreddMovie[] = mockMovieListsByCategory.map(
