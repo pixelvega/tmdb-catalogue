@@ -1,4 +1,3 @@
-import { mockTMDBData, mockTMDBDataDetail } from "./mockData.js"
 import type { MovieLists } from "./moviesType.js"
 
 const getOptions = () => {
@@ -12,7 +11,6 @@ const getOptions = () => {
 }
 
 export const getMoviesByCategory = async (category: MovieLists) => {
-  // return mockTMDBData // TODO: remove mock data
   const page = 1
 
   const response = await fetch(
@@ -39,7 +37,6 @@ export const getMovieListsByCategory = async (categories: MovieLists[]) => {
 }
 
 export const getMovieById = async (movieId: number) => {
-  // return mockTMDBDataDetail // TODO: remove mock data
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
     getOptions()

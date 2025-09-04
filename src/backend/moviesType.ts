@@ -16,7 +16,7 @@ export type Movie = {
 }
 
 export type ResponseMovies = {
-  dates: { maximum: string; minimum: string }
+  dates?: { maximum: string; minimum: string }
   page: number
   results: Movie[]
   total_pages: number

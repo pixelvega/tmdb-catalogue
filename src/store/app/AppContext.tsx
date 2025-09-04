@@ -8,7 +8,7 @@ import {
 } from "react"
 import type { InitialState } from "./appTypes"
 
-interface AppContext {
+export interface AppContext {
   appState: InitialState
   setAppState: Dispatch<SetStateAction<InitialState>>
 }
